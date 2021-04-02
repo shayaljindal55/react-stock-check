@@ -4,10 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Screen shots
 ![Creating](public/blk-stock-monthly.PNG "blk-stock")
-![Creating](public/images/jpmc-stock-monthly.PNG "jpmc-stock")
-![Creating](public/images/stocks-watchlist.PNG "watchlist")
-![Creating](public/images/stocks-auto-suggestion.png "auto-suggestion")
-![Creating](public/images/add-stock.PNG "add-stock")
+![Creating](public/jpmc-stock-monthly.PNG "jpmc-stock")
+![Creating](public/stocks-watchlist.PNG "watchlist")
+![Creating](public/stocks-auto-suggestion.png "auto-suggestion")
+![Creating](public/add-stock.PNG "add-stock")
 ## Available Scripts
 
 In the project directory, you can run:
