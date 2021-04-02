@@ -1,13 +1,17 @@
 .stocks-list {
     background-color: #C8C8C8 !important;
+    margin: auto;
+  width: 50%;
+}
+.main-div {
+    justify-content: center;
 }
 .stock-dataset span{
-    font-weight: 600;
-    white-space: nowrap;
+font-weight: 600;
+white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .add-stock {
     background-color: #66CC66 !important;
   

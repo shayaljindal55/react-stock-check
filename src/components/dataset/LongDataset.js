@@ -126,7 +126,8 @@ function LongDataset() {
   };
 
   return (
-    <div>
+    <div className="main-div mt-4">
+      <h3 className="text-center">Stocks Watchlist</h3>
       <div className={[classes.root, "stocks-list", "mt-4"].join(" ")}>
         <FixedSizeList
           height={400}
@@ -183,10 +184,16 @@ function LongDataset() {
               </h3>
               <Autocomplete
                 id="stock-search"
+                selectOnFocus
+                clearOnBlur
+                value={userInput}
+                handleHomeEndKeys
+                freeSolo
                 options={matchStocks.stocks}
                 onChange={(event, newValue) => {
                   addStock(newValue, event);
                 }}
+                renderOption={(option) => option.stockName}
                 getOptionLabel={(option) => option.stockName}
                 style={{ width: 300 }}
                 renderInput={(params) => (

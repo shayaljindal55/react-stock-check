@@ -24,15 +24,20 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 
 function StocksTimeSeries() {
   // material-UI classes
   const classes = Styles.useStyles();
+  const modalClasses = Styles.useModalStyles();
   const [allStocks, setAllStocks] = useState([]);
   const [data, setData] = useState([]);
+  const [open, setOpen] = useState(false);
   const [customInputs, setCustomInputs] = useState({
     symbol: "",
-    series: "",
+    series: "TIME_SERIES_MONTHLY", //default value
     loading: false,
   });
   useEffect(() => {
@@ -137,6 +142,14 @@ function StocksTimeSeries() {
     }
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className="StocksTimeSeries">
       {customInputs.loading ? (
@@ -151,13 +164,32 @@ function StocksTimeSeries() {
       <h1 className="mt-4">Stock - Time Series</h1>
       <Button
         variant="contained"
-        href="/stocks-list"
         color="primary"
         size="large"
         className="mt-2 float-right mr-5 custom-hover"
+        onClick={handleOpen}
       >
         Manage Stocks
       </Button>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={[modalClasses.modal, "custom-modal"].join(" ")}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={modalClasses.paper}>
+            <LongDataset />
+          </div>
+        </Fade>
+      </Modal>
 
       <FormControl className={classes.formControlStock}>
         <InputLabel id="stock-select-label">Stock</InputLabel>
