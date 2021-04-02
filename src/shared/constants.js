@@ -23,6 +23,7 @@ export const TimeSeries = [
   },
 ];
 
+// sample stocks data for reference only
 export const Stocks = [
   { stockValue: "IBM", stockName: "IBM" },
   { stockValue: "TSCO.LON", stockName: "Tesco PLC" },
@@ -33,6 +34,8 @@ export const Stocks = [
   { stockValue: "NOK", stockName: "Nokia" },
   { stockValue: "TSLA", stockName: "Tesla" },
 ];
+
+export const BestMatchStocksKeys = ["1. symbol", "2. name"];
 
 export const APIKeyNames = [
   "1. open",
@@ -45,3 +48,5 @@ export const INVALID_DATA_ERROR =
   "Invalid Symbol and/or Time Series selected. Please select another value.";
 export const INCOMPLETE_FORM =
   "Please select Symbol and Time Series to load Stock Prices.";
+export const STOCK_DELETE_SUCCESS = "Stock has been deleted successfully!";
+export const STOCK_ADD_SUCCESS = "Stock has been added successfully!";

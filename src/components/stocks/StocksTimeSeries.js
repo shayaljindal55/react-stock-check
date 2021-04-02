@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./StocksTimeSeries.css";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -9,10 +9,10 @@ import * as Styles from "../../shared/styles";
 import * as Utils from "../../shared/utils";
 import Loader from "react-loader-spinner";
 // can use material ui alert or snackbar instead of 'react-toastify' to show toast messages
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import LongDataset from "../dataset/LongDataset";
 import Button from "@material-ui/core/Button";
+import * as FirebaseRef from "../../shared/FirebaseCalls";
 
 import {
   LineChart,
@@ -28,13 +28,24 @@ import {
 function StocksTimeSeries() {
   // material-UI classes
   const classes = Styles.useStyles();
-
+  const [allStocks, setAllStocks] = useState([]);
   const [data, setData] = useState([]);
   const [customInputs, setCustomInputs] = useState({
-    symbol: "", 
+    symbol: "",
     series: "",
     loading: false,
   });
+  useEffect(() => {
+    getStocksList();
+  }, []);
+
+  const getStocksList = () => {
+    FirebaseRef.collectionRef.onSnapshot((snapshot) => {
+      const stockData = [];
+      snapshot.forEach((doc) => stockData.push({ ...doc.data(), id: doc.id }));
+      setAllStocks(stockData);
+    });
+  };
 
   // load stocks
   const loadStocks = (symbolVal, seriesVal) => {
@@ -128,8 +139,6 @@ function StocksTimeSeries() {
 
   return (
     <div className="StocksTimeSeries">
-      <ToastContainer />
-
       {customInputs.loading ? (
         <Loader
           type="Circles"
@@ -158,7 +167,7 @@ function StocksTimeSeries() {
           value={customInputs.symbol}
           onChange={handleSymbolChange}
         >
-          {Constants.Stocks.map((stock, index) => (
+          {allStocks.map((stock, index) => (
             <MenuItem key={index} value={stock.stockValue}>
               {stock.stockName}
             </MenuItem>

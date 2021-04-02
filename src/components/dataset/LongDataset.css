@@ -1,0 +1,31 @@
+.stocks-list {
+    background-color: #C8C8C8 !important;
+}
+.stock-dataset span{
+    font-weight: 600;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.add-stock {
+    background-color: #66CC66 !important;
+  
+}
+.add-stock span {
+    font-weight: 600;
+    color: #ffffff;
+}
+.add-icn {
+    top: 12px;
+    float: right;
+    position: inherit;
+}
+.remove-icn {
+    top: 12px;
+    float: right;
+    position: inherit;
+}
+.remove-icn span {
+    font-weight: 600;
+}
