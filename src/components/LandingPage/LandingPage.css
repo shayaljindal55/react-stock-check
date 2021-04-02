@@ -1,0 +1,46 @@
+.LandingPage {
+    text-align: center;
+  }
+  
+  .LandingPage-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .LandingPage-logo {
+      animation: LandingPage-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .LandingPage-header {
+    background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(175,152,94,1));
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .LandingPage-link {
+    color: #61dafb;
+  }
+  
+  @keyframes LandingPage-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .p-text {
+    text-align: center;
+    color:#9F864B;
+  }
+  .p-text span {
+    font-weight: 500;
+    color:#648B17;
+  }
