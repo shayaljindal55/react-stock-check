@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import StocksTimeSeries from "./components/stocks/StocksTimeSeries";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";

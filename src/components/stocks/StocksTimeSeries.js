@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./StocksTimeSeries.css";
-
-// import for Material-UI
-import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
+import * as Constants from "../../shared/constants";
+import * as Styles from "../../shared/styles";
 import {
   LineChart,
   Line,
@@ -19,81 +17,35 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// styles for Material-UI
-const useStyles = makeStyles((theme) => ({
-  formControlStock: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  formControlTimeSeries: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
 function StocksTimeSeries() {
-  const API_KEY = "FGZFH2DQT1IBES7V";
-  const wrapper = React.createRef();
-  const URL_PATH = "https://www.alphavantage.co/query";
-  const [data, setData] = useState([]);
   // material-UI classes
-  const classes = useStyles();
-  // hook for stock symbol
+  const classes = Styles.useStyles();
+
+  const [data, setData] = useState([]);
   const [symbol, setSymbol] = useState("");
   const [series, setTimeSeries] = useState("");
-  const timeSeries = [
-    {
-      seriesValue: "TIME_SERIES_INTRADAY&interval=5min", // defaulted to 5 minutes
-      seriesName: "Intraday",
-      apiParam: "Time Series (5min)",
-    },
-    {
-      seriesValue: "TIME_SERIES_DAILY",
-      seriesName: "Daily",
-      apiParam: "Time Series (Daily)",
-    },
-    {
-      seriesValue: "TIME_SERIES_WEEKLY",
-      seriesName: "Weekly",
-      apiParam: "Weekly Time Series",
-    },
-    {
-      seriesValue: "TIME_SERIES_MONTHLY",
-      seriesName: "Monthly",
-      apiParam: "Monthly Time Series",
-    },
-  ];
 
-  const stocks = [
-    { stockValue: "AAPL", stockName: "Apple" },
-    { stockValue: "AMZN", stockName: "Amazon" },
-    { stockValue: "NOK", stockName: "Nokia" },
-    { stockValue: "TSLA", stockName: "Tesla" },
-  ];
   // load stocks
-  const loadStocks = (symbol, series) => {
+  const loadStocks = (symbolVal, seriesVal) => {
     const url =
-      URL_PATH +
+      Constants.URL_PATH +
       "?function=" +
-      series +
+      seriesVal +
       "&symbol=" +
-      symbol +
+      symbolVal +
       "&apikey=" +
-      API_KEY;
+      Constants.API_KEY;
     fetch(url)
       .then((response) => response.json())
-      .then((data) => displayStockData(data));
+      .then((data) => displayStockData(data, seriesVal));
   };
 
   // handle stock symbol change from InputLabel and load stocks
-  const handleChange = () => {
-    if (symbol && series) {
+  const handleChange = (symbolVal, seriesVal) => {
+    if (symbolVal && seriesVal) {
       // reset data
       setData([]);
-      loadStocks(symbol, series);
+      loadStocks(symbolVal, seriesVal);
     } else {
       console.log("invalid form");
     }
@@ -101,20 +53,21 @@ function StocksTimeSeries() {
 
   const handleSymbolChange = (event) => {
     setSymbol(event.target.value);
-    handleChange(event.target.value);
+    handleChange(event.target.value, series);
   };
 
   const handleTimeSeriesChange = (event) => {
-    setTimeSeries([]);
     setTimeSeries(event.target.value);
-    handleChange(event.target.value);
+    handleChange(symbol, event.target.value);
   };
 
-  const displayStockData = (result) => {
+  const displayStockData = (result, seriesVal) => {
     // show 10 records at a time
     var countMax = 10;
     var count = 0;
-    const selectedSeriesObj = timeSeries.find((x) => x.seriesValue === series);
+    const selectedSeriesObj = Constants.timeSeries.find(
+      (x) => x.seriesValue === seriesVal
+    );
     const seriesAPIParam = selectedSeriesObj
       ? selectedSeriesObj.apiParam
       : null;
@@ -141,7 +94,7 @@ function StocksTimeSeries() {
   };
 
   return (
-    <div className="StocksTimeSeries" ref={wrapper}>
+    <div className="StocksTimeSeries">
       <h1>Stock - Time Series</h1>
 
       <FormControl className={classes.formControlStock}>
@@ -152,11 +105,7 @@ function StocksTimeSeries() {
           value={symbol}
           onChange={handleSymbolChange}
         >
-          {/* <MenuItem value="AAPL">Apple</MenuItem>
-          <MenuItem value="AMZN">Amazon</MenuItem>
-          <MenuItem value="NOK">Nokia</MenuItem>
-          <MenuItem value="TSLA">Tesla</MenuItem> */}
-          {stocks.map((stock, index) => (
+          {Constants.stocks.map((stock, index) => (
             <MenuItem key={index} value={stock.stockValue}>
               {stock.stockName}
             </MenuItem>
@@ -172,15 +121,11 @@ function StocksTimeSeries() {
           value={series}
           onChange={handleTimeSeriesChange}
         >
-          {timeSeries.map((ts, index) => (
+          {Constants.timeSeries.map((ts, index) => (
             <MenuItem key={index} value={ts.seriesValue}>
               {ts.seriesName}
             </MenuItem>
           ))}
-          {/* <MenuItem value="TSLA">Intraday</MenuItem>
-          <MenuItem value="Daily">Daily</MenuItem>
-          <MenuItem value="Weekly">Weekly</MenuItem>
-          <MenuItem value="NOK">Monthly</MenuItem> */}
         </Select>
       </FormControl>
       <div style={{ width: "100%", height: "400px" }}>
