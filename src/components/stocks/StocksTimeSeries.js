@@ -65,7 +65,7 @@ function StocksTimeSeries() {
     // show 10 records at a time
     var countMax = 10;
     var count = 0;
-    const selectedSeriesObj = Constants.timeSeries.find(
+    const selectedSeriesObj = Constants.TimeSeries.find(
       (x) => x.seriesValue === seriesVal
     );
     const seriesAPIParam = selectedSeriesObj
@@ -79,11 +79,11 @@ function StocksTimeSeries() {
           // push loaded json data to array with keys: data, open, high, low, close & volume
           data.push({
             date: key,
-            open: result[seriesAPIParam][key]["1. open"],
-            high: result[seriesAPIParam][key]["2. high"],
-            low: result[seriesAPIParam][key]["3. low"],
-            close: result[seriesAPIParam][key]["4. close"],
-            volume: result[seriesAPIParam][key]["5. volume"],
+            open: result[seriesAPIParam][key][Constants.APIKeyNames[0]],
+            high: result[seriesAPIParam][key][Constants.APIKeyNames[1]],
+            low: result[seriesAPIParam][key][Constants.APIKeyNames[2]],
+            close: result[seriesAPIParam][key][Constants.APIKeyNames[3]],
+            volume: result[seriesAPIParam][key][Constants.APIKeyNames[4]],
           });
         }
       });
@@ -105,7 +105,7 @@ function StocksTimeSeries() {
           value={symbol}
           onChange={handleSymbolChange}
         >
-          {Constants.stocks.map((stock, index) => (
+          {Constants.Stocks.map((stock, index) => (
             <MenuItem key={index} value={stock.stockValue}>
               {stock.stockName}
             </MenuItem>
@@ -121,7 +121,7 @@ function StocksTimeSeries() {
           value={series}
           onChange={handleTimeSeriesChange}
         >
-          {Constants.timeSeries.map((ts, index) => (
+          {Constants.TimeSeries.map((ts, index) => (
             <MenuItem key={index} value={ts.seriesValue}>
               {ts.seriesName}
             </MenuItem>
@@ -143,7 +143,6 @@ function StocksTimeSeries() {
               type="monotone"
               dataKey="open"
               stroke="#8884d8"
-              activeDot={{ r: 8 }}
             />
             <Line type="monotone" dataKey="close" stroke="#82ca9d" />
             <Line type="monotone" dataKey="high" stroke="#ff0000" />

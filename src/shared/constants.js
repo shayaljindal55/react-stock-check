@@ -1,6 +1,6 @@
 export const API_KEY = "FGZFH2DQT1IBES7V";
 export const URL_PATH = "https://www.alphavantage.co/query";
-export const timeSeries = [
+export const TimeSeries = [
   {
     seriesValue: "TIME_SERIES_INTRADAY&interval=5min", // defaulted to 5 minutes
     seriesName: "Intraday",
@@ -23,9 +23,17 @@ export const timeSeries = [
   },
 ];
 
-export const stocks = [
+export const Stocks = [
   { stockValue: "AAPL", stockName: "Apple" },
   { stockValue: "AMZN", stockName: "Amazon" },
   { stockValue: "NOK", stockName: "Nokia" },
   { stockValue: "TSLA", stockName: "Tesla" },
+];
+
+export const APIKeyNames = [
+  "1. open",
+  "2. high",
+  "3. low",
+  "4. close",
+  "5. volume",
 ];
