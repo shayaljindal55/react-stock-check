@@ -6,6 +6,9 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import * as Constants from "../../shared/constants";
 import * as Styles from "../../shared/styles";
+import * as Utils from "../../shared/utils";
+import Loader from "react-loader-spinner";
+
 import {
   LineChart,
   Line,
@@ -22,8 +25,11 @@ function StocksTimeSeries() {
   const classes = Styles.useStyles();
 
   const [data, setData] = useState([]);
-  const [symbol, setSymbol] = useState("");
-  const [series, setTimeSeries] = useState("");
+  const [customInputs, setCustomInputs] = useState({
+    symbol: "",
+    series: "",
+    loading: false,
+  });
 
   // load stocks
   const loadStocks = (symbolVal, seriesVal) => {
@@ -36,8 +42,19 @@ function StocksTimeSeries() {
       "&apikey=" +
       Constants.API_KEY;
     fetch(url)
+      .then(Utils.handleErrors)
       .then((response) => response.json())
-      .then((data) => displayStockData(data, seriesVal));
+      .then((data) => {
+        if (data && data["Meta Data"]) {
+          // Meta Data key is common for all time series responses
+          displayStockData(data, seriesVal);
+        } else {
+          throw Error(data);
+        }
+      })
+      .catch(function (error) {
+        console.log("error", error["Error Message"]);
+      });
   };
 
   // handle stock symbol change from InputLabel and load stocks
@@ -45,6 +62,9 @@ function StocksTimeSeries() {
     if (symbolVal && seriesVal) {
       // reset data
       setData([]);
+      setCustomInputs((prevState) => {
+        return { ...prevState, loading: true };
+      });
       loadStocks(symbolVal, seriesVal);
     } else {
       console.log("invalid form");
@@ -52,13 +72,17 @@ function StocksTimeSeries() {
   };
 
   const handleSymbolChange = (event) => {
-    setSymbol(event.target.value);
-    handleChange(event.target.value, series);
+    setCustomInputs((prevState) => {
+      return { ...prevState, symbol: event.target.value };
+    });
+    handleChange(event.target.value, customInputs.series);
   };
 
   const handleTimeSeriesChange = (event) => {
-    setTimeSeries(event.target.value);
-    handleChange(symbol, event.target.value);
+    setCustomInputs((prevState) => {
+      return { ...prevState, series: event.target.value };
+    });
+    handleChange(customInputs.symbol, event.target.value);
   };
 
   const displayStockData = (result, seriesVal) => {
@@ -71,7 +95,7 @@ function StocksTimeSeries() {
     const seriesAPIParam = selectedSeriesObj
       ? selectedSeriesObj.apiParam
       : null;
-    if (seriesAPIParam) {
+    if (seriesAPIParam && result[seriesAPIParam]) {
       Object.keys(result[seriesAPIParam]).forEach(function (key) {
         // add count and take only countMax
         count++;
@@ -88,6 +112,9 @@ function StocksTimeSeries() {
         }
       });
       setData(data);
+      setCustomInputs((prevState) => {
+        return { ...prevState, loading: false };
+      });
     } else {
       console.log("invalid input");
     }
@@ -95,6 +122,9 @@ function StocksTimeSeries() {
 
   return (
     <div className="StocksTimeSeries">
+      {customInputs.loading ? (
+        <Loader type="Circles" className="spinner" color="#82ca9d" height={80} width={80} />
+      ) :  null}
       <h1>Stock - Time Series</h1>
 
       <FormControl className={classes.formControlStock}>
@@ -102,7 +132,7 @@ function StocksTimeSeries() {
         <Select
           labelId="stock-select-label"
           id="stock-select"
-          value={symbol}
+          value={customInputs.symbol}
           onChange={handleSymbolChange}
         >
           {Constants.Stocks.map((stock, index) => (
@@ -118,7 +148,7 @@ function StocksTimeSeries() {
         <Select
           labelId="time-series-select-label"
           id="time-series-select"
-          value={series}
+          value={customInputs.series}
           onChange={handleTimeSeriesChange}
         >
           {Constants.TimeSeries.map((ts, index) => (
@@ -139,11 +169,7 @@ function StocksTimeSeries() {
             <YAxis domain={["dataMin", "dataMax"]} />
             <Tooltip />
             <Legend />
-            <Line
-              type="monotone"
-              dataKey="open"
-              stroke="#8884d8"
-            />
+            <Line type="monotone" dataKey="open" stroke="#8884d8" />
             <Line type="monotone" dataKey="close" stroke="#82ca9d" />
             <Line type="monotone" dataKey="high" stroke="#ff0000" />
           </LineChart>
@@ -151,6 +177,7 @@ function StocksTimeSeries() {
       </div>
     </div>
   );
+  // }
 }
 
 export default StocksTimeSeries;

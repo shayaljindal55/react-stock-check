@@ -24,6 +24,10 @@ export const TimeSeries = [
 ];
 
 export const Stocks = [
+  { stockValue: "IBM", stockName: "IBM" },
+  { stockValue: "TSCO.LON", stockName: "Tesco PLC" },
+  { stockValue: "SHOP.TRT", stockName: "Shopify" },
+  { stockValue: "GPV.TRV", stockName: "GreenPower Motor Co" },
   { stockValue: "AAPL", stockName: "Apple" },
   { stockValue: "AMZN", stockName: "Amazon" },
   { stockValue: "NOK", stockName: "Nokia" },
