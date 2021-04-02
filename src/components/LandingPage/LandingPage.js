@@ -5,9 +5,9 @@ function LandingPage() {
   return (
       <div className="LandingPage">
         <header className="LandingPage-header">
-          <h2 class="p-text">Welcome to Stock - Time Series</h2>
+          <h2 className="p-text">Welcome to Stock - Time Series</h2>
           <img src={logo} className="LandingPage-logo" alt="logo" />
-          <p class="p-text">
+          <p className="p-text">
             Click
             <span>
               <div className="sans-serif">
