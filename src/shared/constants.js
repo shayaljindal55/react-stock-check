@@ -41,3 +41,7 @@ export const APIKeyNames = [
   "4. close",
   "5. volume",
 ];
+export const INVALID_DATA_ERROR =
+  "Invalid Symbol and/or Time Series selected. Please select another value.";
+export const INCOMPLETE_FORM =
+  "Please select Symbol and Time Series to load Stock Prices.";

@@ -8,6 +8,8 @@ import * as Constants from "../../shared/constants";
 import * as Styles from "../../shared/styles";
 import * as Utils from "../../shared/utils";
 import Loader from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   LineChart,
@@ -53,6 +55,7 @@ function StocksTimeSeries() {
         }
       })
       .catch(function (error) {
+        toast.error(error["Error Message"]);
         console.log("error", error["Error Message"]);
       });
   };
@@ -67,7 +70,7 @@ function StocksTimeSeries() {
       });
       loadStocks(symbolVal, seriesVal);
     } else {
-      console.log("invalid form");
+      toast.info(Constants.INCOMPLETE_FORM);
     }
   };
 
@@ -116,15 +119,23 @@ function StocksTimeSeries() {
         return { ...prevState, loading: false };
       });
     } else {
-      console.log("invalid input");
+      toast.info(Constants.INVALID_DATA_ERROR);
     }
   };
 
   return (
     <div className="StocksTimeSeries">
+       <ToastContainer />
+
       {customInputs.loading ? (
-        <Loader type="Circles" className="spinner" color="#82ca9d" height={80} width={80} />
-      ) :  null}
+        <Loader
+          type="Circles"
+          className="spinner"
+          color="#82ca9d"
+          height={80}
+          width={80}
+        />
+      ) : null}
       <h1>Stock - Time Series</h1>
 
       <FormControl className={classes.formControlStock}>
