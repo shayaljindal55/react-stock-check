@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ![Creating](public/blk-stock-monthly.PNG "blk-stock")
 ![Creating](public/images/jpmc-stock-monthly.PNG "jpmc-stock")
 ![Creating](public/images/stocks-watchlist.PNG "watchlist")
-![Creating](public/images/stocks-auto-suggestion.PNG "auto-suggestion")
+![Creating](public/images/stocks-auto-suggestion.png "auto-suggestion")
 ![Creating](public/images/add-stock.PNG "add-stock")
 ## Available Scripts
 
