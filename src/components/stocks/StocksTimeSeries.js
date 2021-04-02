@@ -8,8 +8,11 @@ import * as Constants from "../../shared/constants";
 import * as Styles from "../../shared/styles";
 import * as Utils from "../../shared/utils";
 import Loader from "react-loader-spinner";
+// can use material ui alert or snackbar instead of 'react-toastify' to show toast messages
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LongDataset from "../dataset/LongDataset";
+import Button from "@material-ui/core/Button";
 
 import {
   LineChart,
@@ -28,7 +31,7 @@ function StocksTimeSeries() {
 
   const [data, setData] = useState([]);
   const [customInputs, setCustomInputs] = useState({
-    symbol: "",
+    symbol: "", 
     series: "",
     loading: false,
   });
@@ -125,7 +128,7 @@ function StocksTimeSeries() {
 
   return (
     <div className="StocksTimeSeries">
-       <ToastContainer />
+      <ToastContainer />
 
       {customInputs.loading ? (
         <Loader
@@ -136,10 +139,19 @@ function StocksTimeSeries() {
           width={80}
         />
       ) : null}
-      <h1>Stock - Time Series</h1>
+      <h1 className="mt-4">Stock - Time Series</h1>
+      <Button
+        variant="contained"
+        href="/stocks-list"
+        color="primary"
+        size="large"
+        className="mt-2 float-right mr-5 custom-hover"
+      >
+        Manage Stocks
+      </Button>
 
       <FormControl className={classes.formControlStock}>
-        <InputLabel id="stock-select-label">Symbol</InputLabel>
+        <InputLabel id="stock-select-label">Stock</InputLabel>
         <Select
           labelId="stock-select-label"
           id="stock-select"
@@ -169,7 +181,8 @@ function StocksTimeSeries() {
           ))}
         </Select>
       </FormControl>
-      <div style={{ width: "100%", height: "400px" }}>
+
+      <div style={{ width: "100%", height: "400px" }} className="row">
         <ResponsiveContainer>
           <LineChart
             data={data}

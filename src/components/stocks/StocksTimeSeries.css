@@ -9,6 +9,6 @@
     height: 31px;
     width: 31px;
 }
-.toast-info {
-
+.custom-hover:hover {
+   color: #ffffff;
 }
