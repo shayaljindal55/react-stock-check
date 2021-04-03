@@ -1,4 +1,4 @@
-# Getting Started with Stock Time Series App build using React
+# Getting Started with Stock Time Series App built using React and Firebase
 
 To run this project :
 
