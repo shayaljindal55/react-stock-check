@@ -1,9 +1,10 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./StocksTimeSeries.css";
 import * as Constants from "../../shared/constants";
 import * as Utils from "../../shared/utils";
 import Loader from "react-loader-spinner";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   LineChart,
@@ -17,7 +18,7 @@ import {
 } from "recharts";
 
 function StocksTimeSeries(props) {
-  const prevProps = useRef(props);
+  const prevProps = useRef([props.series, props.symbol]);
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState({
     loading: false,
@@ -27,17 +28,20 @@ function StocksTimeSeries(props) {
     const querySeries = props.series;
     const querySymbol = props.symbol;
     const prevLateVal = prevProps.current;
-    const nextLateVal = props;
+    const nextLateVal = [props.series, props.symbol];
     if (typeof nextLateVal !== "undefined" && prevLateVal !== nextLateVal) {
       if (querySymbol && querySeries) {
         setLoader(() => {
           return { loading: true };
         });
+        props.setCustomInputs((prevState) => {
+          return { ...prevState, symbol: querySymbol, series: querySeries };
+        });
         loadStocks(querySymbol, querySeries);
-        prevProps.current = props;
+        prevProps.current = [props.series, props.symbol];
       }
     }
-  }, [props]);
+  }, [props.symbol, props.series]);
   // load stocks
   const loadStocks = (symbolVal, seriesVal) => {
     const url =
@@ -52,18 +56,30 @@ function StocksTimeSeries(props) {
       .then(Utils.handleErrors)
       .then((response) => response.json())
       .then((data) => {
+        const errMsg = data
+          ? data["Error Message"]
+            ? data["Error Message"]
+            : data["Note"]
+            ? data["Note"]
+            : null
+          : null;
         if (!data) {
-          throw Error(data);
+          throw Error(errMsg);
         } else if (data && data["Meta Data"]) {
           // Meta Data key is common for all time series responses
           displayStockData(data, seriesVal);
         } else {
-          throw Error(data);
+          throw Error(errMsg);
         }
       })
       .catch(function (error) {
-        toast.error(error["Error Message"]);
-        console.log("error", error["Error Message"]);
+        const message = error
+          ? error
+          : "Something went wrong while fetching data. Please try again!";
+        toast(message);
+        setLoader(() => {
+          return { loading: false };
+        });
       });
   };
 
@@ -104,6 +120,7 @@ function StocksTimeSeries(props) {
 
   return (
     <div className="StocksTimeSeries">
+      <ToastContainer />
       {loader.loading ? (
         <Loader
           type="Circles"
@@ -113,7 +130,6 @@ function StocksTimeSeries(props) {
           width={80}
         />
       ) : null}
-
       <div style={{ width: "100%", height: "400px" }} className="row">
         <ResponsiveContainer>
           <LineChart

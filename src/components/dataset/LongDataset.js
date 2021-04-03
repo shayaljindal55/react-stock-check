@@ -7,7 +7,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { FixedSizeList } from "react-window";
 import Icon from "@material-ui/core/Icon";
 import * as FirebaseRef from "../../shared/FirebaseCalls";
-import { toast } from "react-toastify";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
@@ -15,6 +14,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import * as Utils from "../../shared/utils";
 import Loader from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LongDataset() {
   const modalClasses = Styles.useModalStyles();
@@ -121,12 +122,12 @@ function LongDataset() {
       })
       .catch(function (error) {
         toast.error(error["Error Message"]);
-        console.log("error", error["Error Message"]);
       });
   };
 
   return (
     <div className="main-div">
+      <ToastContainer />
       <h3 className="text-center">Stocks Watchlist</h3>
       <div className={[classes.root, "stocks-list", "mt-4"].join(" ")}>
         <FixedSizeList

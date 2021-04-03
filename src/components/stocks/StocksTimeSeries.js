@@ -7,7 +7,8 @@ import Select from "@material-ui/core/Select";
 import * as Constants from "../../shared/constants";
 import * as Styles from "../../shared/styles";
 // can use material ui alert or snackbar or any other library instead of 'react-toastify' to show toast messages
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import LongDataset from "../dataset/LongDataset";
 import Button from "@material-ui/core/Button";
 import * as FirebaseRef from "../../shared/FirebaseCalls";
@@ -88,6 +89,7 @@ function StocksTimeSeries() {
 
   return (
     <div className="StocksTimeSeries">
+      <ToastContainer />
       <h1 className="mt-4">Stock - Time Series</h1>
       <Button
         variant="contained"
@@ -149,7 +151,11 @@ function StocksTimeSeries() {
           ))}
         </Select>
       </FormControl>
-      <StocksChart series={query.get("series")} symbol={query.get("symbol")} />
+      <StocksChart
+        series={query.get("series")}
+        symbol={query.get("symbol")}
+        setCustomInputs={setCustomInputs}
+      />
     </div>
   );
 }
