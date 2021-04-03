@@ -1,6 +1,17 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To run this project :
+
+Step 1: Download or clone the source code from `https://github.com/shayaljindal55/react-stock-check`
+Step 2: Open the source code is any IDE of your choice. 
+Step 3: Run npm install and wait for the complete execution of the command
+Step 4: Run npm start
+Step 5: Open http://localhost:3000 to run the app in browser in development mode
+
+http://localhost:3000 - Landing Page with link to move to `/stocks` route. 
+http://localhost:3000/stocks to directly render `/stocks` route with modal fearure to manage (add/remove) stocks. 
+http://localhost:3000/stocks to directly render `/stocks-list` route manage stocks component separately in a new window.
 
 # Screen shots
 ![Creating](public/blk-stock-monthly.PNG "blk-stock")
