@@ -13,6 +13,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={LandingPage}></Route>
           <Route path="/stocks" component={StocksTimeSeries}></Route>
+          <Route path="/stocks/:stock/:series" component={StocksTimeSeries}></Route>
+          {/* <Route path="/stocks-chart/:stock/:series" component={StocksTimeSeries}></Route> */}
           <Route path="/stocks-list" component={LongDataset}></Route>
         </Switch>
       </Router>

@@ -1,14 +1,6 @@
 .StocksTimeSeries {
     text-align: center;
   }
-.spinner {
-    position: fixed;
-    left: 50%;
-    top: 35%;
-    z-index: 1000;
-    height: 31px;
-    width: 31px;
-}
 .custom-hover:hover {
    color: #ffffff;
 }

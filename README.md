@@ -11,6 +11,7 @@ To run this project :
 - http://localhost:3000 - Landing Page with link to move to `/stocks` route. 
 - http://localhost:3000/stocks to directly render `/stocks` route with modal fearure to manage (add/remove) stocks.
 - http://localhost:3000/stocks to directly render `/stocks-list` route manage stocks component separately in a new window.
+- http://localhost:3000/stocks?symbol=BLAK34.SAO&series=TIME_SERIES_MONTHLY to directly open time series stock price view of a particular symbol and time.
 
 # Screen shots
 ![Creating](public/blk-stock-weekly.PNG "blk-stock")
