@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+
+body {
+  font-family: 'Arvo', serif;
+}
+
 .App {
   text-align: center;
 }
@@ -40,7 +46,7 @@
   text-align: center;
   color:#9F864B;
 }
-.p-text span {
+.p-text a {
   font-weight: 500;
   color:#648B17;
 }

@@ -126,7 +126,7 @@ function LongDataset() {
   };
 
   return (
-    <div className="main-div mt-4">
+    <div className="main-div">
       <h3 className="text-center">Stocks Watchlist</h3>
       <div className={[classes.root, "stocks-list", "mt-4"].join(" ")}>
         <FixedSizeList

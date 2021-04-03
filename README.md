@@ -13,11 +13,12 @@ To run this project :
 - http://localhost:3000/stocks to directly render `/stocks-list` route manage stocks component separately in a new window.
 
 # Screen shots
-![Creating](public/blk-stock-monthly.PNG "blk-stock")
-![Creating](public/jpmc-stock-monthly.PNG "jpmc-stock")
+![Creating](public/blk-stock-weekly.PNG "blk-stock")
+![Creating](public/jpmc-stock-intraday.PNG "jpmc-stock")
 ![Creating](public/stocks-watchlist.PNG "watchlist")
 ![Creating](public/stocks-auto-suggestion.png "auto-suggestion")
 ![Creating](public/add-stock.PNG "add-stock")
+![Creating](public/landing.PNG"add-stock")
 ## Available Scripts
 
 In the project directory, you can run:
