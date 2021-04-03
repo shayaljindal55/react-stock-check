@@ -1,5 +1,12 @@
 # Getting Started with Stock Time Series App built using React and Firebase
 
+This app has the following features :
+
+- View a time series history of a ticker
+- Change time period of chart
+- Manage (add/remove) tickers
+- Access to the previously visited time series data
+
 To run this project :
 
 - Download or clone the source code from `https://github.com/shayaljindal55/react-stock-check`
