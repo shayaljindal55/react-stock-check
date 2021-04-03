@@ -1,6 +1,5 @@
-# Getting Started with Create React App
+# Getting Started with Stock Time Series App build using React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 To run this project :
 
 - Download or clone the source code from `https://github.com/shayaljindal55/react-stock-check`
