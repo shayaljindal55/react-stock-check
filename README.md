@@ -18,7 +18,7 @@ To run this project :
 ![Creating](public/stocks-watchlist.PNG "watchlist")
 ![Creating](public/stocks-auto-suggestion.png "auto-suggestion")
 ![Creating](public/add-stock.PNG "add-stock")
-![Creating](public/landing.PNG"add-stock")
+![Creating](public/landing.PNG "add-stock")
 ## Available Scripts
 
 In the project directory, you can run:
